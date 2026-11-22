@@ -10,11 +10,6 @@
   },
   "social": [
     {
-      "id": "s3",
-      "platform": "instagram",
-      "url": "https://www.instagram.com/yourprofile"
-    },
-    {
       "id": "smwruipie62",
       "platform": "telegram",
       "url": "https://t.me/codingresource4u"
@@ -23,6 +18,16 @@
       "id": "smwrujolf64",
       "platform": "pinterest",
       "url": "https://in.pinterest.com/everydayailab/"
+    },
+    {
+      "id": "smwrw2xh389",
+      "platform": "linkedin",
+      "url": "https://www.linkedin.com/in/subhash-thakur-4u/"
+    },
+    {
+      "id": "s3",
+      "platform": "instagram",
+      "url": "https://www.instagram.com/yourprofile"
     }
   ],
   "resources": [
