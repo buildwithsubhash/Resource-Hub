@@ -80,11 +80,11 @@
   ],
   "links": [
     {
-      "id": "l1",
-      "name": "Khan Academy",
-      "description": "Free lessons and practice in maths, science and more.",
-      "url": "https://www.khanacademy.org/",
-      "category": "Learning"
+      "id": "lmwrw1gpv28",
+      "name": "Lightswind UI",
+      "description": "Stunning React Components for Modern Developers",
+      "url": "https://lightswind.com/",
+      "category": "Ui/Ux"
     },
     {
       "id": "l2",
@@ -99,6 +99,13 @@
       "description": "Search research papers and academic articles.",
       "url": "https://scholar.google.com/",
       "category": "Research"
+    },
+    {
+      "id": "l1",
+      "name": "Khan Academy",
+      "description": "Free lessons and practice in maths, science and more.",
+      "url": "https://www.khanacademy.org/",
+      "category": "Learning"
     }
   ]
 }
