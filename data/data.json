@@ -28,57 +28,54 @@
   "resources": [
     {
       "id": "r1",
-      "slug": "physics-class-12-quick-revision-notes",
       "title": "Physics Class 12: Quick Revision Notes",
       "description": "Chapter-wise short notes with formulas and diagrams for fast revision.",
       "category": "Study Notes",
       "subject": "Physics",
       "type": "PDF",
-      "pages": 48,
       "language": "English",
+      "pages": 48,
       "source": "link",
-      "url": "https://example.com/physics-notes",
       "badge": "",
       "featured": true,
       "added": "2026-11-18",
-      "updated": "2026-11-18",
-      "sample": true
+      "updated": "2026-11-22",
+      "slug": "physics-class-12-quick-revision-notes",
+      "url": "https://example.com/physics-notes"
     },
     {
       "id": "r2",
-      "slug": "hindi-grammar-handbook",
       "title": "Hindi Grammar Handbook",
       "description": "A clear guide to grammar rules with solved examples.",
       "category": "eBooks",
       "subject": "Hindi",
       "type": "eBook",
-      "pages": 120,
       "language": "Hindi",
+      "pages": 120,
       "source": "link",
-      "url": "https://example.com/hindi-grammar",
       "badge": "",
       "featured": false,
       "added": "2026-10-20",
-      "updated": "2026-10-20",
-      "sample": true
+      "updated": "2026-11-22",
+      "slug": "hindi-grammar-handbook",
+      "url": "https://example.com/hindi-grammar"
     },
     {
       "id": "r3",
-      "slug": "weekly-study-planner",
       "title": "Weekly Study Planner",
       "description": "A printable planner for goals, subjects and revision slots.",
       "category": "Templates",
       "subject": "",
       "type": "Template",
-      "pages": 2,
       "language": "English",
+      "pages": 2,
       "source": "link",
-      "url": "https://example.com/study-planner",
       "badge": "Popular",
       "featured": false,
       "added": "2026-09-30",
-      "updated": "2026-09-30",
-      "sample": true
+      "updated": "2026-11-22",
+      "slug": "weekly-study-planner",
+      "url": "https://example.com/study-planner"
     }
   ],
   "links": [
@@ -87,24 +84,21 @@
       "name": "Khan Academy",
       "description": "Free lessons and practice in maths, science and more.",
       "url": "https://www.khanacademy.org/",
-      "category": "Learning",
-      "sample": true
+      "category": "Learning"
     },
     {
       "id": "l2",
       "name": "Canva",
       "description": "Design graphics, documents and presentations online.",
       "url": "https://www.canva.com/",
-      "category": "Design",
-      "sample": true
+      "category": "Design"
     },
     {
       "id": "l3",
       "name": "Google Scholar",
       "description": "Search research papers and academic articles.",
       "url": "https://scholar.google.com/",
-      "category": "Research",
-      "sample": true
+      "category": "Research"
     }
   ]
 }
