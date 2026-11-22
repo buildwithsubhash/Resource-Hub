@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin</title>
+<script>try{var t=localStorage.getItem("rl_theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="panel">
+  <header class="top">
+    <h1>Admin</h1>
+    <div class="actions">
+      <button id="theme" class="icon-btn" type="button" aria-label="Switch to dark mode" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-moon"/></svg></button>
+      <a class="btn ghost small" href="../index.html?preview=1" target="_blank" rel="noopener">Preview draft</a>
+      <button id="publish" class="btn small" type="button">Publish to live site</button>
+    </div>
+  </header>
+  <p class="note">Edit anything below, then click <strong>Publish</strong>. Changes are saved to your GitHub repo and go live in 1 to 2 minutes. <span id="dirty" class="dirty" hidden>You have unpublished changes.</span></p>
+  <p id="status" class="status" role="status"></p>
+  <p id="sampleNote" class="hint"></p>
+
+  <details id="gh" class="box gh">
+    <summary>GitHub connection</summary>
+    <p class="muted small-t">Create a fine-grained token at GitHub &rarr; Settings &rarr; Developer settings &rarr; Personal access tokens. Limit it to this one repository with <strong>Contents: Read and write</strong>. Only someone with this token can upload or publish.</p>
+    <div class="two">
+      <label>GitHub username <input id="ghOwner" autocomplete="off" placeholder="yourname"></label>
+      <label>Repository <input id="ghRepo" autocomplete="off" placeholder="resource-hub"></label>
+    </div>
+    <div class="two">
+      <label>Branch <input id="ghBranch" autocomplete="off" value="main"></label>
+      <label>Access token <input id="ghToken" type="password" autocomplete="off" placeholder="github_pat_..."></label>
+    </div>
+    <label class="check"><input id="ghRemember" type="checkbox"> Remember token on this device</label>
+  </details>
+
+  <div class="tabs" role="tablist" aria-label="Admin sections">
+    <button class="tab" role="tab" data-tab="resources" aria-selected="true">Resources</button>
+    <button class="tab" role="tab" data-tab="links" aria-selected="false">Websites</button>
+    <button class="tab" role="tab" data-tab="social" aria-selected="false">Social</button>
+    <button class="tab" role="tab" data-tab="settings" aria-selected="false">Settings</button>
+  </div>
+
+  <!-- RESOURCES -->
+  <section data-panel="resources" class="cols">
+    <form id="form" class="box">
+      <h2 id="formTitle">Add resource</h2>
+      <input type="hidden" id="id">
+      <label>Title <input id="title" required maxlength="80"></label>
+      <label>Description <textarea id="description" rows="3" maxlength="240" required></textarea></label>
+      <div class="two">
+        <label>Category (same name = same group) <input id="category" list="catlist" placeholder="Study Notes" maxlength="30"></label>
+        <label>Subject or exam (optional) <input id="subject" placeholder="Physics, UPSC..." maxlength="30"></label>
+      </div>
+      <datalist id="catlist"></datalist>
+      <div class="two">
+        <label>File type
+          <select id="type" class="select">
+            <option value="">Auto-detect</option><option>PDF</option><option>eBook</option><option>Template</option><option>Document</option>
+            <option>Spreadsheet</option><option>Presentation</option><option>Archive</option><option>Image</option><option>Other</option>
+          </select>
+        </label>
+        <label>Language
+          <select id="language" class="select"><option value="">Not set</option><option>English</option><option>Hindi</option><option>Hinglish</option><option>Other</option></select>
+        </label>
+      </div>
+      <label>Pages (optional) <input id="pages" type="number" min="0" max="5000" placeholder="48"></label>
+      <label>How do users get it?
+        <select id="source" class="select"><option value="file">Upload a file (stored in your repo)</option><option value="link">External link (Drive, Telegram, etc.)</option></select>
+      </label>
+      <div id="fileRow">
+        <label>File (max 25 MB) <input id="file" type="file"></label>
+        <p id="curFile" class="muted small-t" hidden></p>
+        <label class="check"><input id="rights" type="checkbox"> I own this file or have permission to share it</label>
+        <p class="hint">Only share material you created or are allowed to distribute. For big ebooks use an external link.</p>
+      </div>
+      <div id="linkRow" hidden><label>Download link <input id="url" type="url" placeholder="https://drive.google.com/..."></label></div>
+      <div class="two">
+        <label>Badge (optional, "New" is automatic for 14 days) <input id="badge" placeholder="Popular" maxlength="20"></label>
+        <label class="check"><input id="featured" type="checkbox"> Feature this resource</label>
+      </div>
+      <p id="formErr" class="err" role="alert"></p>
+      <div class="actions">
+        <button class="btn" type="submit" id="save">Add resource</button>
+        <button class="btn ghost" type="button" id="cancel" hidden>Cancel edit</button>
+      </div>
+    </form>
+    <div class="box"><h2>Listed resources <span id="count" class="muted"></span></h2><ul id="list" class="list"></ul><p class="hint">Featured items show first, then the newest. Items marked SAMPLE are hidden from visitors until you edit or delete them.</p></div>
+  </section>
+
+  <!-- WEBSITES -->
+  <section data-panel="links" class="cols" hidden>
+    <form id="lform" class="box">
+      <h2 id="lTitle">Add website</h2>
+      <input type="hidden" id="lid">
+      <label>Name <input id="lname" required maxlength="40"></label>
+      <label>Short description <input id="ldesc" required maxlength="100"></label>
+      <div class="two">
+        <label>Link <input id="lurl" type="url" required placeholder="https://..."></label>
+        <label>Category (optional) <input id="lcat" maxlength="24"></label>
+      </div>
+      <p id="lErr" class="err" role="alert"></p>
+      <div class="actions"><button class="btn" type="submit" id="lsave">Add website</button><button class="btn ghost" type="button" id="lcancel" hidden>Cancel edit</button></div>
+    </form>
+    <div class="box"><h2>Listed websites <span id="lcount" class="muted"></span></h2><ul id="llist" class="list"></ul></div>
+  </section>
+
+  <!-- SOCIAL -->
+  <section data-panel="social" class="cols" hidden>
+    <form id="sform" class="box">
+      <h2 id="sTitle">Add social link</h2>
+      <input type="hidden" id="sid">
+      <label>Platform <select id="splatform" class="select"></select></label>
+      <label>Profile or channel link <input id="surl" type="url" required placeholder="https://t.me/yourchannel"></label>
+      <p id="sErr" class="err" role="alert"></p>
+      <div class="actions"><button class="btn" type="submit" id="ssave">Add link</button><button class="btn ghost" type="button" id="scancel" hidden>Cancel edit</button></div>
+    </form>
+    <div class="box"><h2>Social links <span id="scount" class="muted"></span></h2><ul id="slist" class="list"></ul><p class="hint">Telegram is always shown first. These appear in the "Get new resources first" section and the footer.</p></div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section data-panel="settings" class="cols" hidden>
+    <div class="box">
+      <h2>Site and contact</h2>
+      <label>Site name <input id="siteName" maxlength="40"></label>
+      <label>Headline <input id="siteHeadline" maxlength="120"></label>
+      <label>Short description <textarea id="siteDesc" rows="2" maxlength="240"></textarea></label>
+      <div class="two">
+        <label>Contact email <input id="siteEmail" type="email" maxlength="80"></label>
+        <label>Location in footer (optional) <input id="siteLocation" maxlength="60" placeholder="City, State"></label>
+      </div>
+      <div class="two">
+        <label>Your name (footer credit) <input id="siteAuthor" maxlength="40" placeholder="Subhash Thakur"></label>
+        <label>Site URL (for SEO) <input id="siteUrl" type="url" maxlength="100" placeholder="https://yourdomain.com/"></label>
+      </div>
+      <p class="hint">Site URL: leave empty to use your github.io address automatically, or enter your own domain if you have one.</p>
+    </div>
+    <div class="box">
+      <h2>Backup and reset</h2>
+      <p class="muted small-t">This browser keeps your working copy. Download a backup now and then.</p>
+      <div class="actions">
+        <button id="download" class="btn ghost small" type="button">Download backup</button>
+        <label class="btn ghost small">Import backup<input id="import" type="file" accept="application/json" hidden></label>
+        <button id="reset" class="btn ghost small danger" type="button">Reload from live site</button>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="../assets/js/theme.js"></script>
+<script src="../assets/js/render.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
